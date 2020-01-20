@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">FirebaseTest</string>
+    <string name="sign_in">Sign In</string>
+    <string name="welcome_to_ezywash">Welcome To EzyWash</string>
+    <string name="by_proceeding_you_also_agree_to_the_n_terms_of_services_n_and_privacy_policy">By proceeding you also agree to the \n Terms of Services \n and Privacy Policy</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="todo">TODO</string>
+    <string name="select">select</string>
+
+    <string-array name="gender">
+        <item>Male</item>
+        <item>Female</item>
+        <item>Others</item>
+    </string-array>
+</resources>
