@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ClassWash"></activity>
+        <activity android:name=".BookingActivity"></activity>
+        <activity android:name=".ClassWashC" />
+        <activity android:name=".ClassWashB" />
+        <activity android:name=".ClassWash" />
         <activity android:name=".Dashboard" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".ActivitySuccessfully" />

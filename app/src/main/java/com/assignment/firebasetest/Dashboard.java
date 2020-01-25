@@ -33,10 +33,12 @@ public class Dashboard extends AppCompatActivity {
                     startActivity(intent);
                 }
                 else if (washPackage.equals("CLASS B WASH")){
-
+                    Intent intent = new Intent(v.getContext(), ClassWashB.class);
+                    startActivity(intent);
                 }
                 else {
-
+                    Intent intent = new Intent(v.getContext(), ClassWashC.class);
+                    startActivity(intent);
                 }
             }
         });
