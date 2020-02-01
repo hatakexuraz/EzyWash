@@ -57,7 +57,7 @@ public class RegisterUser extends AppCompatActivity {
 
         user = new User();
 
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("User");
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("User"); //Creates a reference to the database with a child named "User"
 
         //Get the last user count to later increase the uid
 //        databaseReference.addValueEventListener(new ValueEventListener() {
@@ -89,7 +89,7 @@ public class RegisterUser extends AppCompatActivity {
                 //databaseReference.child(String.valueOf(id+1)).setValue(user); //create a auto increment id for the user
 
                 databaseReference.push().setValue(user);
-                Toast.makeText(RegisterUser.this, "Data inserted successfully.", Toast.LENGTH_LONG);
+                Toast.makeText(RegisterUser.this, "Data inserted successfully.", Toast.LENGTH_LONG).show();
 
                 txt_first_name.setText("");
                 txt_last_name.setText("");

@@ -17,8 +17,7 @@ public class TimePickerFragment extends DialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         Calendar calendar = Calendar.getInstance();
         int hrs = calendar.get(Calendar.HOUR_OF_DAY);
-        int min = calendar.get(Calendar.MINUTE)
-;
+        int min = calendar.get(Calendar.MINUTE);
         return new TimePickerDialog(getActivity(), (TimePickerDialog.OnTimeSetListener)getActivity(), hrs, min, DateFormat.is24HourFormat(getActivity()));
     }
 }
