@@ -1,8 +1,10 @@
 package com.assignment.firebasetest;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +13,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -35,6 +43,11 @@ public class PaymentActivity extends AppCompatActivity {
     private EditText txt_bill_phone;
     private Button btn_pay;
 
+    private BookingPayment payment;
+    private DatabaseReference databaseReference;
+
+    protected long maxid=0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,25 +70,55 @@ public class PaymentActivity extends AppCompatActivity {
         txt_class_wash.setText(Global.class_wash);
         txt_price.setText(setPrice());
 
+        payment = new BookingPayment();
+
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("Payment"); //Creates a reference to the database with a child named "User"
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists())
+                    maxid=(dataSnapshot.getChildrenCount());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
         btn_pay.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
-            public void onClick(View v) {txt_card_type.requestFocus();
-                txt_card_type.setError("Please fill this field");
+            public void onClick(View v) {
                 //check if fields are filled
                 checkEmpty();
 
                 long card_num = Long.parseLong(txt_card_number.getText().toString());
 
+                boolean valid2=false;
                 try {
-                    boolean valid = validateDate(txt_card_expiry.getText().toString());
+                    valid2 = validateDate(txt_card_expiry.getText().toString());
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
 
                 boolean valid = ValidateCard.validitychk(card_num);
-                if (valid){
+                if (valid==true){
                     Toast.makeText(getApplicationContext(), "The card is valid.", Toast.LENGTH_LONG).show();
+                    if (valid2 == true){
+                        Toast.makeText(getApplicationContext(), "The card date is valid.", Toast.LENGTH_LONG).show();
+
+                        Log.d("PaymentActivity","Booking id : "+Global.booking_number);
+                        payment.setBooking_id(Global.booking_number);
+                        payment.setBill_user(Global.email);
+                        payment.setDetail(Global.class_wash);
+                        payment.setPrice(Global.price);
+
+                        databaseReference.child(String.valueOf(maxid+1)).setValue(payment);
+                        Log.d("PaymentActivity", "Paid successfully");
+                        Intent intent = new Intent(getApplicationContext(), PaymentReceiptActivity.class);
+                        startActivity(intent);
+                    }
                 }
                 else {
                     Toast.makeText(getApplicationContext(), "The card is not valid.", Toast.LENGTH_LONG).show();
@@ -88,12 +131,15 @@ public class PaymentActivity extends AppCompatActivity {
         String price = "$";
         if(Global.class_wash.equals("CLASS A WASH")){
             price = "$290";
+            Global.price = price;
         }
         else if (Global.class_wash.equals("CLASS B WASH")){
             price = "$150";
+            Global.price = price;
         }
         else if (Global.class_wash.equals("CLASS C WASH")){
             price = "$100";
+            Global.price = price;
         }
         return price;
     }
@@ -103,6 +149,7 @@ public class PaymentActivity extends AppCompatActivity {
         if (txt_card_type.getText().toString().equals("")){
             txt_card_type.requestFocus();
             txt_card_type.setError("Please fill this field");
+            Log.d("PaymentActivity", "Why is this happening??");
         }
         else if (txt_card_number.getText().toString().equals("")){
             txt_card_number.requestFocus();

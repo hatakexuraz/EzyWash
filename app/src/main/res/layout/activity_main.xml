@@ -10,7 +10,6 @@
         android:id="@+id/btn_sign_in"
         android:layout_width="380dp"
         android:layout_height="63dp"
-        android:layout_marginTop="20dp"
         android:background="#747d8c"
         android:text="@string/sign_in"
         android:textColor="#fff"
@@ -19,9 +18,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.483"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5"
-        app:layout_constraintVertical_bias="0.306"
-        android:onClick="goToSignIn" />
+        app:layout_constraintTop_toBottomOf="@+id/textView15" />
 
     <TextView
         android:id="@+id/textView"
@@ -45,21 +42,6 @@
         app:layout_constraintTop_toBottomOf="@+id/textView"
         tools:src="@tools:sample/avatars" />
 
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
-        android:text="@string/by_proceeding_you_also_agree_to_the_n_terms_of_services_n_and_privacy_policy"
-        android:textAlignment="center"
-        android:textColor="#747d8c"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.425"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_sign_up" />
-
     <Button
         android:id="@+id/btn_sign_up"
         android:layout_width="380dp"
@@ -73,5 +55,18 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/logo" />
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/by_proceeding_you_also_agree_to_the_n_terms_of_services_n_and_privacy_policy"
+        android:textAlignment="center"
+        android:textColor="#747d8c"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_sign_up" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

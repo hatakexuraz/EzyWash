@@ -1,11 +1,14 @@
 package com.assignment.firebasetest;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,8 +19,11 @@ import android.widget.ImageView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.DateFormat;
 import java.util.Calendar;
@@ -34,6 +40,8 @@ public class BookingActivity extends AppCompatActivity implements DatePickerDial
     private DatabaseReference databaseReference;
     private Booking booking;
     private String time2, date;
+    protected long maxid=0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +56,18 @@ public class BookingActivity extends AppCompatActivity implements DatePickerDial
         booking = new Booking();
 
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Booking"); //Creates a reference to the database with a child named "User"
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists())
+                    maxid=(dataSnapshot.getChildrenCount());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         ImageView imageView;
         ImageView imageView1;
@@ -69,6 +89,7 @@ public class BookingActivity extends AppCompatActivity implements DatePickerDial
             }
         });
         btn_cnf_booking.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View v) {
                 Log.d("BookingActivity", "Date: "+date+" and Time: "+time2);
@@ -83,7 +104,15 @@ public class BookingActivity extends AppCompatActivity implements DatePickerDial
                 booking.setDate(date);
                 booking.setTime(time2);
 
-                databaseReference.push().setValue(booking);
+                databaseReference.child(String.valueOf(maxid+1)).setValue(booking);
+                Global.booking_number= Math.toIntExact(maxid + 1);
+                Global.booking_date = date;
+                Global.booking_time=time2;
+                Log.d("BookingActivity","Booking id : "+Global.booking_number);
+                Log.d("BookingActivity","Booking date : "+Global.booking_date);
+                Log.d("BookingActivity","Booking time : "+Global.booking_time);
+
+//                databaseReference.push().setValue(booking);
                 Toast.makeText(BookingActivity.this, "Booking successful.", Toast.LENGTH_LONG).show();
 
                 txt_city.setText("");

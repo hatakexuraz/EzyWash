@@ -69,17 +69,18 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    //checks user email and password to verify the user with database
     private void logUserIn(final String email, final String password){
         Log.d("TAG", "Inside login function");
         databaseReference = FirebaseDatabase.getInstance().getReference().child("User");
-        final Query query = databaseReference.orderByChild("email").equalTo(email);
+        final Query query = databaseReference.orderByChild("email").equalTo(email);   //checks email in the firebase
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
-                    Global.email = email;
+                    Global.email = email;   //saved as Global value
 
-                    Query query2 = databaseReference.orderByChild("password").equalTo(password);
+                    Query query2 = databaseReference.orderByChild("password").equalTo(password);  //checks password in firebase
                     query2.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

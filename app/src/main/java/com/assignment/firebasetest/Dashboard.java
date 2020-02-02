@@ -28,7 +28,7 @@ public class Dashboard extends AppCompatActivity {
 
         int radiobutton=2131230855;   //class a wash radio button id
         radioGroup = findViewById(R.id.radioGroup);
-        radioGroup.check(radiobutton);
+        radioGroup.check(radiobutton);  //choose first option as default
         btn_next = findViewById(R.id.btn_next);
 
         txt_error = findViewById(R.id.txt_error);
