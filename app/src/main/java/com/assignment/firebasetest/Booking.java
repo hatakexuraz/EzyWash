@@ -14,6 +14,12 @@ public class Booking {
     public Booking() {
     }
 
+    public Booking(String booking_type, String booking_date, String bookihn_time) {
+        this.wash_class = booking_type;
+        this.date = booking_date;
+        this.time = bookihn_time;
+    }
+
     public String getUser() {
         return user;
     }

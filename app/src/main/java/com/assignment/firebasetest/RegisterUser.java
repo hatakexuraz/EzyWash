@@ -1,5 +1,6 @@
 package com.assignment.firebasetest;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -12,8 +13,11 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class RegisterUser extends AppCompatActivity {
 
@@ -29,7 +33,7 @@ public class RegisterUser extends AppCompatActivity {
     private DatabaseReference databaseReference;
     private User user;
 
-    private long id=0;
+    protected long id=0;
 
     private Spinner spinner;
     private static final String[] items = {"Male", "Female", "Other"};
@@ -60,17 +64,17 @@ public class RegisterUser extends AppCompatActivity {
         databaseReference = FirebaseDatabase.getInstance().getReference().child("User"); //Creates a reference to the database with a child named "User"
 
         //Get the last user count to later increase the uid
-//        databaseReference.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                if(dataSnapshot.exists()){
-//                    id = (dataSnapshot.getChildrenCount());
-//                }
-//            }
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//            }
-//        });
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    id = (dataSnapshot.getChildrenCount());
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
 
         btn_signup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,9 +90,9 @@ public class RegisterUser extends AppCompatActivity {
                 user.setPassword(txt_password.getText().toString());
                 user.setDob(txt_date_of_birth.getText().toString());
                 user.setGender(txt_gender.getText().toString());
-                //databaseReference.child(String.valueOf(id+1)).setValue(user); //create a auto increment id for the user
+                databaseReference.child(String.valueOf(id+1)).setValue(user); //create a auto increment id for the user
 
-                databaseReference.push().setValue(user);
+                //databaseReference.push().setValue(user);
                 Toast.makeText(RegisterUser.this, "Data inserted successfully.", Toast.LENGTH_LONG).show();
 
                 txt_first_name.setText("");

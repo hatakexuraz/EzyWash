@@ -40,7 +40,7 @@ public class BookingActivity extends AppCompatActivity implements DatePickerDial
     private DatabaseReference databaseReference;
     private Booking booking;
     private String time2, date;
-    protected long maxid=0;
+        protected long maxid=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

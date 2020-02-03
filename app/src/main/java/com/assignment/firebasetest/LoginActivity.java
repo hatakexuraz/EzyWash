@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -79,12 +80,15 @@ public class LoginActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
                     Global.email = email;   //saved as Global value
-
+                    Log.d("LoginActivity", "Global email: "+Global.email);
                     Query query2 = databaseReference.orderByChild("password").equalTo(password);  //checks password in firebase
                     query2.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             if (dataSnapshot.exists()){
+
+//                                FirebaseUser user=FirebaseAuth.getInstance().getCurrentUser();
+//                                String userid=user.getUid();
                                 Intent dashboard = new Intent(LoginActivity.this, Dashboard.class);
                                 startActivity(dashboard);
                             }
