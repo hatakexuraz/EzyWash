@@ -1,40 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/appbackgroung"
+    android:orientation="horizontal"
     android:weightSum="100">
 
     <TextView
         android:id="@+id/booking_info"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:textSize="25sp"
-        android:text="text1"
         android:layout_weight="66.6"
+        android:gravity="center"
+        android:text="text1"
         android:textAlignment="center"
-        android:gravity="center"/>
+        android:textSize="25sp" />
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="33.3">
+        android:layout_weight="33.3"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/text_date"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:gravity="center"
-            android:text="text2"/>
+            android:text="text2" />
 
         <TextView
             android:id="@+id/text_timw"
             android:layout_width="match_parent"
             android:layout_height="30dp"
+            android:layout_below="@+id/text_date"
             android:gravity="center"
-            android:text="text3"
-            android:layout_below="@+id/text_date"/>
+            android:text="text3" />
 
     </LinearLayout>
 </LinearLayout>

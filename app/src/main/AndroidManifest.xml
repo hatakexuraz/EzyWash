@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".BookedTime"></activity>
+        <activity android:name=".ForgetPassword"></activity>
+        <activity android:name=".FeedbackActivity" />
+        <activity android:name=".Dashboard2" />
+        <activity android:name=".BookedTime" />
         <activity android:name=".PaymentReceiptActivity" />
         <activity android:name=".PaymentActivity" />
         <activity android:name=".BookingActivity" />

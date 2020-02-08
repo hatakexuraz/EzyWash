@@ -116,6 +116,20 @@ public class PaymentActivity extends AppCompatActivity {
 
                         databaseReference.child(String.valueOf(maxid+1)).setValue(payment);
                         Log.d("PaymentActivity", "Paid successfully");
+
+                        txt_class_wash.setText("");
+                        txt_price.setText("");
+                        txt_card_type.setText("");
+                        txt_card_number.setText("");
+                        txt_card_name.setText("");
+                        txt_card_expiry.setText("");
+                        txt_card_cvv.setText("");
+                        txt_bill_name.setText("");
+                        txt_bill_postal.setText("");
+                        txt_bill_city.setText("");
+                        txt_bill_phone.setText("");
+                        btn_pay.setText("");
+
                         Intent intent = new Intent(getApplicationContext(), PaymentReceiptActivity.class);
                         startActivity(intent);
                     }
@@ -199,7 +213,7 @@ public class PaymentActivity extends AppCompatActivity {
         LocalDateTime now = LocalDateTime.now();
         String currentDate = dtf.format(now);
         Date currentDate2 = sdf.parse(currentDate);
-        Log.d("PaymentActivity", "blabla: " +currentDate2.toString());
+        Log.d("PaymentActivity", "Current Date: " +currentDate2.toString());
 
         if (date1.before(currentDate2)){
             txt_card_expiry.requestFocus();
