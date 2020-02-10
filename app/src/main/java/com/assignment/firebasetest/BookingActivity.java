@@ -104,7 +104,8 @@ public class BookingActivity extends AppCompatActivity implements DatePickerDial
                 booking.setDate(date);
                 booking.setTime(time2);
 
-                databaseReference.child(String.valueOf(maxid+1)).setValue(booking);
+//                databaseReference.child(String.valueOf(maxid+1)).setValue(booking);
+                databaseReference.push().setValue(booking);
                 Global.booking_number= Math.toIntExact(maxid + 1);
                 Global.booking_date = date;
                 Global.booking_time=time2;

@@ -86,6 +86,9 @@ public class RegisterUser extends AppCompatActivity {
         btn_validate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressBar.setVisibility(View.VISIBLE);
+                txt_messsage.setVisibility(View.VISIBLE);
+
                 if (verifyEmail(txt_email.getText().toString())){                   //first email's pattern is checked and user is created in database
                     firebaseAuth.createUserWithEmailAndPassword(txt_email.getText().toString(), txt_password.getText().toString()).
                             addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -143,12 +146,16 @@ public class RegisterUser extends AppCompatActivity {
 
                                     }
                                     else {
+                                        progressBar.setVisibility(View.GONE);
+                                        txt_messsage.setVisibility(View.GONE);
                                         Toast.makeText(RegisterUser.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
                                     }
                                 }
                             });
                 }
                 else{
+                    progressBar.setVisibility(View.GONE);
+                    txt_messsage.setVisibility(View.GONE);
                     txt_email.requestFocus();
                     txt_email.setError("Please enter valid email address.");
                 }
@@ -197,6 +204,9 @@ public class RegisterUser extends AppCompatActivity {
         txt_phone.setVisibility(View.VISIBLE);
         btn_signup.setVisibility(View.VISIBLE);
         btn_validate.setVisibility(View.GONE);
+
+        progressBar.setVisibility(View.GONE);
+        txt_messsage.setVisibility(View.GONE);
     }
 
 //    private void onSpinnerItemSelected(){

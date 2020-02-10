@@ -117,7 +117,8 @@ public class PaymentActivity extends AppCompatActivity {
                         payment.setDetail(Global.class_wash);
                         payment.setPrice(Global.price);
 
-                        databaseReference.child(String.valueOf(maxid+1)).setValue(payment);
+//                        databaseReference.child(String.valueOf(maxid+1)).setValue(payment);
+                        databaseReference.push().setValue(payment);
                         Log.d("PaymentActivity", "Paid successfully");
 
                         txt_class_wash.setText("");
@@ -230,10 +231,6 @@ public class PaymentActivity extends AppCompatActivity {
             return true;
         }
     }
-
-
-
-
 
 
     private class SendMail extends AsyncTask<String, Integer, Void> {
