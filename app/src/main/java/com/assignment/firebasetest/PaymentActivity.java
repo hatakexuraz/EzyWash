@@ -5,9 +5,12 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -130,6 +133,9 @@ public class PaymentActivity extends AppCompatActivity {
                         txt_bill_phone.setText("");
                         btn_pay.setText("");
 
+                        new SendMail().execute("");
+                        Log.d("PaymentActivity","Mail should be sent");
+
                         Intent intent = new Intent(getApplicationContext(), PaymentReceiptActivity.class);
                         startActivity(intent);
                     }
@@ -223,5 +229,62 @@ public class PaymentActivity extends AppCompatActivity {
         else{
             return true;
         }
+    }
+
+
+
+
+
+
+    private class SendMail extends AsyncTask<String, Integer, Void> {
+
+//        private ProgressDialog progressDialog;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+//            progressDialog = ProgressDialog.show(MainActivity.this, "Please wait", "Sending mail", true, false);
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+//            progressDialog.dismiss();
+        }
+
+        protected Void doInBackground(String... params) {
+            Mail m = new Mail(Global.main_email, Global.main_password);
+
+            String[] toArr = {Global.email, Global.main_email};
+            m.setTo(toArr);
+            m.setFrom(Global.main_email);
+            m.setSubject("Car Wash Booking");
+            m.setBody("EzyWash car wash booking service, \n\nYou just made a booking, following are the details on your booking.\n" +
+                    "Booking id: "+Global.booking_number+"\nBooking Class: "+Global.class_wash+ "\nDate: "+Global.booking_date+
+                    "\nTime: "+Global.booking_time+"\nPrice: "+Global.price+"\n\nBe sure to be available at the given location with your vehicle. " +
+                    "You might also get a call when the staff arrives at the location. Thank you for choosing our service and please give us your " +
+                    "feedback so that we can provide you better experience.");
+
+            try {
+                if(m.send()) {
+                    Toast.makeText(PaymentActivity.this, "Email was sent successfully.", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(PaymentActivity.this, "Email was not sent.", Toast.LENGTH_LONG).show();
+                }
+            } catch(Exception e) {
+                Log.e("MailApp", "Could not send email", e);
+            }
+            return null;
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return super.onOptionsItemSelected(item);
     }
 }

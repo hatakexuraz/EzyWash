@@ -9,4 +9,6 @@ public class Global {
     public static String booking_date;
     public static String booking_time;
     public static String price;
+    public static final String main_email="suraj.bhandari047@gmail.com";
+    public static final String main_password="surajandroid47";
 }

@@ -69,14 +69,20 @@ public class LoginActivity extends AppCompatActivity {
                 password = txt_pass.getText().toString();
 
                 if(email.isEmpty()){
+                    progressBar.setVisibility(View.GONE);
+                    txt_messsage.setVisibility(View.GONE);
                     txt_email.setError("Please enter email");
                     txt_email.requestFocus();
                 }
                 else if(password.isEmpty()){
+                    progressBar.setVisibility(View.GONE);
+                    txt_messsage.setVisibility(View.GONE);
                     txt_pass.setError("Please enter password");
                     txt_pass.requestFocus();
                 }
                 else if(email.isEmpty() && password.isEmpty()) {
+                    progressBar.setVisibility(View.GONE);
+                    txt_messsage.setVisibility(View.GONE);
                     txt_email.setError("Please enter email");
                     txt_email.requestFocus();
                     txt_pass.setError("Please enter password");
@@ -127,6 +133,8 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 }
                 else {
+                    progressBar.setVisibility(View.GONE);
+                    txt_messsage.setVisibility(View.GONE);
                     Toast.makeText(LoginActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
                 }
             }
